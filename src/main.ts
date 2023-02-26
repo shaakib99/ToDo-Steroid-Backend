@@ -1,6 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import {
+  LoggingInterceptor,
+  TransformInterceptor,
+} from './common/interceptors';
 
 async function bootstrap() {
   const { PORT = 3001 } = process.env;
@@ -11,7 +15,12 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
+
+  app.useGlobalInterceptors(
+    ...[new TransformInterceptor(), new LoggingInterceptor()],
+  );
+
   await app.listen(PORT);
-  Logger.log(`Server started at http://localhost:${PORT}`, `NestApplication`);
+  Logger.log(`Server started at ${await app.getUrl()}`, `NestApplication`);
 }
 bootstrap();
