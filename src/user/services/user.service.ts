@@ -16,14 +16,25 @@ export class UserService {
     private readonly userModel: Model<IUser>,
   ) {}
 
-  public async create(createUserDto: CreateUserDTO): Promise<IUser> {
-    throw new NotFoundException('Testing');
-  }
+  public async create(createUserDTO: CreateUserDTO): Promise<any> {}
   public async update(): Promise<any> {}
   public async findOne(): Promise<any> {}
   public async findAll(listDTO: ListDTO): Promise<IUser[]> {
     try {
-      return [];
+      const query: any = {
+        isActive: true,
+        isDeleted: false,
+        skip: listDTO.skip || 0,
+        limit: listDTO.limit || 10,
+      };
+
+      if (listDTO.hasOwnProperty('lastIndex') && listDTO.lastIndex) {
+        delete query.skip;
+        delete query.limit;
+        query.lastIndex = listDTO.lastIndex;
+      }
+
+      return this.userModel.find(query);
     } catch (e) {
       throw new HttpException(
         e.message || 'Error',
