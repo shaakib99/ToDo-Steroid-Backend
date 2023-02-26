@@ -1,10 +1,10 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
-@Schema()
 /**
  * ! TODO: Add Google Sign in Token
  */
+@Schema()
 export class User {
   @Prop({ required: true })
   name: string;
