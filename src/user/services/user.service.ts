@@ -30,10 +30,12 @@ export class UserService {
       let userDTO = new UserDTO();
       userDTO.name = createUserDTO?.name;
       userDTO.email = createUserDTO?.email;
-      userDTO.password = await bcrypt.hash(
-        createUserDTO.password,
-        process.env.PASSWORD_ENCRYPTION_HASH,
-      );
+      userDTO.password = await bcrypt.hash(createUserDTO.password, 10);
+
+      if (createUserDTO?.profilePic) {
+        userDTO.profilePic = createUserDTO?.profilePic;
+      }
+
       const user = await this.userModel.create(userDTO);
       return user.save();
     } catch (err) {
