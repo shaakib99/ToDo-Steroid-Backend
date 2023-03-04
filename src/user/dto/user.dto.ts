@@ -6,6 +6,7 @@ import {
   IsMongoId,
   MaxLength,
   MinLength,
+  IsEmail,
 } from 'class-validator';
 
 export class UserDTO {
@@ -13,6 +14,12 @@ export class UserDTO {
   @MinLength(3)
   @MaxLength(30)
   name: string;
+
+  @IsString()
+  @MinLength(3)
+  @MaxLength(30)
+  @IsEmail()
+  email: string;
 
   @IsString()
   @MinLength(8)
@@ -36,6 +43,9 @@ export class UserDTO {
 
   @IsBoolean()
   isDeleted: boolean;
+
+  @IsBoolean()
+  isAdmin: boolean;
 
   @IsNumber()
   cAt: number;

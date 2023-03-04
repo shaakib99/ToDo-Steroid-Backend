@@ -1,10 +1,11 @@
 export interface IUser extends Document {
-  name: string;
-  profilePic: string;
-  devices: string[];
-  isActive: boolean;
-  isDeleted: boolean;
-  cAt: number;
-  uAt: number;
-  uBy: IUser;
+  readonly name: string;
+  readonly email: string;
+  readonly profilePic: string;
+  readonly devices: string[];
+  readonly isActive: boolean;
+  readonly isDeleted: boolean;
+  readonly cAt: number;
+  readonly uAt: number;
+  readonly uBy: IUser;
 }
