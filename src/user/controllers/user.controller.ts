@@ -6,9 +6,11 @@ import {
   HttpStatus,
   Post,
   Body,
+  UseGuards,
 } from '@nestjs/common';
-import { plainToClass } from 'class-transformer';
-import { CreateUserDTO, ListDTO, UserDTO } from '../dto';
+import { User } from 'src/common/decorators';
+import { AuthGuard } from '../../common/guards';
+import { CreateUserDTO, ListDTO } from '../dto';
 import { IUser } from '../interfaces/user.interface';
 import { UserService } from '../services/user.service';
 
@@ -26,6 +28,7 @@ export class UserController {
       );
     }
   }
+
   @Get()
   findAll(@Query() listDTO: ListDTO): Promise<IUser[]> {
     try {

@@ -45,6 +45,7 @@ export class UserService {
       );
     }
   }
+
   public async update(): Promise<any> {}
   public async findOne(): Promise<any> {}
   public async findAll(listDTO: ListDTO): Promise<IUser[]> {
