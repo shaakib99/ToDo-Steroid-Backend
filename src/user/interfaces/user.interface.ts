@@ -1,5 +1,6 @@
 export interface IUser extends Document {
   readonly name: string;
+  readonly password: string;
   readonly email: string;
   readonly profilePic: string;
   readonly devices: string[];

@@ -8,8 +8,8 @@ import {
   Body,
   UseGuards,
 } from '@nestjs/common';
-import { User } from 'src/common/decorators';
-import { AuthGuard } from '../../common/guards';
+import { User } from '../../common/decorators';
+import { JWTAuthGuard } from '../../common/guards';
 import { CreateUserDTO, ListDTO } from '../dto';
 import { IUser } from '../interfaces/user.interface';
 import { UserService } from '../services/user.service';
@@ -28,9 +28,9 @@ export class UserController {
       );
     }
   }
-
+  @UseGuards(JWTAuthGuard)
   @Get()
-  findAll(@Query() listDTO: ListDTO): Promise<IUser[]> {
+  findAll(@Query() listDTO: ListDTO, @User() user: IUser): Promise<IUser[]> {
     try {
       return this.userService.findAll(listDTO);
     } catch (err) {

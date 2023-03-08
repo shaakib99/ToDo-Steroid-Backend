@@ -9,9 +9,10 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DATABASE_CONNECTION),
+    AuthModule,
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthModule],
+  providers: [AppService],
 })
 export class AppModule {}
