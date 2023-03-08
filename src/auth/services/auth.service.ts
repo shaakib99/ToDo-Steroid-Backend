@@ -27,7 +27,10 @@ export class AuthService {
       if (!user) {
         throw new NotFoundException('Email does not exist');
       }
-      const passwordHash = await bcrypt.hash(loginDto.password, 10);
+      const passwordHash = await bcrypt.hash(
+        loginDto.password,
+        Number(process.env.SALT_ROUND || 10),
+      );
       const isPasswordMatch = bcrypt.compareSync(
         loginDto?.password,
         passwordHash,

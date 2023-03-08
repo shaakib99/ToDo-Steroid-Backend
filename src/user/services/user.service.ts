@@ -30,7 +30,10 @@ export class UserService {
       let userDTO = new UserDTO();
       userDTO.name = createUserDTO?.name;
       userDTO.email = createUserDTO?.email;
-      userDTO.password = await bcrypt.hash(createUserDTO.password, 10);
+      userDTO.password = await bcrypt.hash(
+        createUserDTO.password,
+        Number(process.env.SALT_ROUND || 10),
+      );
 
       if (createUserDTO?.profilePic) {
         userDTO.profilePic = createUserDTO?.profilePic;
