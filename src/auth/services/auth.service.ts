@@ -22,11 +22,12 @@ export class AuthService {
     try {
       const user = await this.userModel
         .findOne({ email: loginDto.email })
-        .select(['_id,', 'email', 'password']);
+        .select(['_id,', 'email', 'password', 'isActive', 'isDeleted']);
 
-      if (!user) {
+      if (!user || user.isDeleted) {
         throw new NotFoundException('Email does not exist');
       }
+
       const passwordHash = await bcrypt.hash(
         loginDto.password,
         Number(process.env.SALT_ROUND || 10),
@@ -39,6 +40,8 @@ export class AuthService {
       if (!isPasswordMatch) {
         throw new NotAcceptableException('Password Does not match');
       }
+
+      await user.updateOne({ isActive: true });
       return user;
     } catch (err) {
       throw new HttpException(
