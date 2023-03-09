@@ -1,7 +1,8 @@
-import { createParamDecorator } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
-export const User = createParamDecorator((data, req) => {
-  return {
-    _id: '343255',
-  };
-});
+export const User = createParamDecorator(
+  (data: string, context: ExecutionContext) => {
+    const req = context.switchToHttp().getRequest();
+    return req.user;
+  },
+);

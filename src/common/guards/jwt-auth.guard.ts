@@ -30,6 +30,7 @@ export class JWTAuthGuard implements CanActivate {
       });
 
       if (!user) throw new UnauthorizedException('You are not authorized');
+      request.user = user;
       return user;
     } catch (err) {
       throw new HttpException(
