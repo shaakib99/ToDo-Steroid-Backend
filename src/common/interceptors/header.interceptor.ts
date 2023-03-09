@@ -7,7 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { Observable, tap } from 'rxjs';
 
-export class TokenInterceptor implements NestInterceptor {
+export class HeaderInterceptor implements NestInterceptor {
   constructor(
     @Inject(JwtService)
     private readonly jwtService: JwtService,

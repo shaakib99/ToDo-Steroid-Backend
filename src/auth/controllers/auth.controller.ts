@@ -8,14 +8,14 @@ import {
 } from '@nestjs/common';
 import { IUser } from '../../user/interfaces';
 import { LoginDTO } from '../dto';
-import { TokenInterceptor } from '../../common/interceptors';
+import { HeaderInterceptor } from '../../common/interceptors';
 import { AuthService } from '../services';
 
 @Controller('user')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseInterceptors(TokenInterceptor)
+  @UseInterceptors(HeaderInterceptor)
   @Post('/login')
   async login(@Body() loginDTO: LoginDTO): Promise<IUser> {
     try {
